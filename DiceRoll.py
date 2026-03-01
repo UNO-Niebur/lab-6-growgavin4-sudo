@@ -2,22 +2,32 @@
 #Name:Gavin Grow
 #Date:03/1/26
 #Assignment:dice roll
+
 import random
 
 def main():
-  #Create an empty list with possible roll values
-  rolls = [0,0,0,0,0,0,0,0,0,0,0,0]
-  #Create two dice values ranging from 1 - 6 each
-  for r in range(100):
-    dice1 = random.randint(1,6)
-    rolls[dice1 - 1] = rolls[dice1 - 1] + 1
-  #find the sum total of the two dice
-  
-  #print statictics for dice rolls
-dice = 1
-for count in rolls: 
-  print(dice, ":", count)
-  dice = dice + 1
+    trials = 10000
+    
+    # index 0–12 
+    counts = [0] * 13
 
-if __name__ == '__main__':
-  main()
+    # simulate dice rolls
+    for i in range(trials):
+        dice1 = random.randint(1, 6)
+        dice2 = random.randint(1, 6)
+        total = dice1 + dice2
+        counts[total] += 1
+
+    # print results
+    print("Total  Count   Percentage")
+    for total in range(2, 13):
+        count = counts[total]
+        percentage = (count / trials) * 100
+        print(f"{total:>5}  {count:>5}   {percentage:>6.2f}%")
+
+    # check totals
+    print("\nTotal rolls:", sum(counts))
+    print("Percent total:", sum(counts[2:13]) / trials * 100)
+
+if __name__ == "__main__":
+    main()
